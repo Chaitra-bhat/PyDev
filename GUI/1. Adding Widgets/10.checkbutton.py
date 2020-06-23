@@ -23,12 +23,29 @@ name_entered.grid(column=0,row=1)
 action = ttk.Button(win,text="Click Me!", command = click_me)
 action.grid(column=2, row=1)
 
+#Creating three checkbutton
 ttk.Label(win,text='Choose a number:').grid(column=1,row=0)
 number = tk.StringVar()
 number_chosen = ttk.Combobox(win,width=12,textvariable=number,state='readonly')
 number_chosen['values'] = (1,2,4,42,100)
 number_chosen.grid(column=1,row=1)
 number_chosen.current(0)
+
+
+chVarDis = tk.IntVar()
+check1 = tk.Checkbutton(win, text='Disabled', variable=chVarDis,state='disabled')
+check1.deselect()
+check1.grid(column=0,row=4)#sticky=tk.W)
+
+chVarUn = tk.IntVar()
+check2 = tk.Checkbutton(win, text='Unchecked', variable=chVarUn)
+check2.deselect()
+check2.grid(column=1,row=4)#sticky=tk.W)
+
+chVarEn = tk.IntVar()
+check3 = tk.Checkbutton(win, text='Enabled', variable=chVarEn)
+check3.select()
+check3.grid(column=2,row=4)#sticky=tk.W)
 
 name_entered.focus()    #place cursor on the entry box
 
