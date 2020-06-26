@@ -9,14 +9,28 @@ win = tk.Tk()
 #Add a title
 win.title("Python GUI")
 
+#creating tabs
+tabControl = ttk.Notebook(win)
+tab1 = ttk.Frame(tabControl)
+tabControl.add(tab1,text="Tab 1")
+
+#creating another tab
+tab2 = ttk.Frame(tabControl)  #create a tab
+tabControl.add(tab2,text="Tab 2") #add the tab
+
 
 #creating a container frame to hold all other widgets
-mighty = ttk.LabelFrame(win,text='Mighty Python')
+mighty = ttk.LabelFrame(tab1,text='Mighty Python')
 mighty.grid(column=0,row=0,padx=8,pady=4)
 
-mighty2 = ttk.LabelFrame(tab2,text='The Snake')
-mighty2.grid(column=0,row=0,padx=8,pady=4)
+#Creating another mighty tab to update in tab2 
+mighty2 = ttk.LabelFrame(tab2,text='Mighty 2 python')
+mighty2.grid(column = 1, row=0, padx=8, pady=4)
 
+
+#Adding label for tab 2
+a_label = ttk.Label(mighty2,text="Enter your age: ")
+a_label.grid(column=0,row=0)
 
 #Button click
 def click_me():
@@ -43,7 +57,7 @@ number_chosen.grid(column=1,row=1)
 number_chosen.current(0)
 
 chVarDis = tk.IntVar()
-check1 = tk.Checkbutton(mighty2, text='Disabled', variable=chVarDis,state='disabled')
+check1 = tk.Checkbutton(mighty, text='Disabled', variable=chVarDis,state='disabled')
 check1.deselect()
 check1.grid(column=0,row=4)#sticky=tk.W)
 
@@ -77,7 +91,7 @@ radVar.set(99)
 
 # Now creating all three radiobuttons widgets within one loop
 for col in range(3):
-    curRad = tk.Radiobutton(mighty,text=colors[col], variable=radVar, value=col, command=radCall)
+    curRad = tk.Radiobutton(mighty2,text=colors[col], variable=radVar, value=col, command=radCall)
     curRad.grid(column=col,row=5,sticky=tk.W)
 
 
@@ -105,17 +119,6 @@ def _quit():
     win.quit()
     win.destroy()
     exit()
-
-#creating tabs
-tabControl = ttk.Notebook(mighty)
-tab1 = ttk.Frame(tabControl)
-tabControl.add(tab1,text="Tab 1")   #add the tab
-tabControl.pack(expand=1,fill="both")   #pack to make visible
-
-
-tabControl2 = ttk.Notebook(mighty2)
-tab2 = ttk.Frame(tabControl)  #create a tab
-tabControl.add(tab2,text="Tab 2")
 
 
 # creating a menubar
@@ -148,7 +151,7 @@ run_menu.add_command(label="Check Module")
 run_menu.add_command(label="Python shell")
 menu_bar.add_cascade(label="Run", menu=run_menu)
 
-
+tabControl.pack(expand=1,fill="both")   #pack to make visible
 
 name_entered.focus()    #place cursor on the entry box
 

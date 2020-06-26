@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
 from tkinter import Menu
+from tkinter import messagebox as msg
+from datetime import date
+from datetime import time
+from datetime import datetime
 
 #create instance
 win = tk.Tk()
@@ -9,14 +13,28 @@ win = tk.Tk()
 #Add a title
 win.title("Python GUI")
 
+#creating tabs
+tabControl = ttk.Notebook(win)
+tab1 = ttk.Frame(tabControl)
+tabControl.add(tab1,text="Tab 1")
+
+#creating another tab
+tab2 = ttk.Frame(tabControl)  #create a tab
+tabControl.add(tab2,text="Tab 2") #add the tab
+
 
 #creating a container frame to hold all other widgets
-mighty = ttk.LabelFrame(win,text='Mighty Python')
+mighty = ttk.LabelFrame(tab1,text='Mighty Python')
 mighty.grid(column=0,row=0,padx=8,pady=4)
 
-mighty2 = ttk.LabelFrame(tab2,text='The Snake')
-mighty2.grid(column=0,row=0,padx=8,pady=4)
+#Creating another mighty tab to update in tab2 
+mighty2 = ttk.LabelFrame(tab2,text='Mighty 2 python')
+mighty2.grid(column = 1, row=0, padx=8, pady=4)
 
+
+#Adding label for tab 2
+a_label = ttk.Label(mighty2,text="Enter your age: ")
+a_label.grid(column=0,row=0)
 
 #Button click
 def click_me():
@@ -43,7 +61,7 @@ number_chosen.grid(column=1,row=1)
 number_chosen.current(0)
 
 chVarDis = tk.IntVar()
-check1 = tk.Checkbutton(mighty2, text='Disabled', variable=chVarDis,state='disabled')
+check1 = tk.Checkbutton(mighty, text='Disabled', variable=chVarDis,state='disabled')
 check1.deselect()
 check1.grid(column=0,row=4)#sticky=tk.W)
 
@@ -77,7 +95,7 @@ radVar.set(99)
 
 # Now creating all three radiobuttons widgets within one loop
 for col in range(3):
-    curRad = tk.Radiobutton(mighty,text=colors[col], variable=radVar, value=col, command=radCall)
+    curRad = tk.Radiobutton(mighty2,text=colors[col], variable=radVar, value=col, command=radCall)
     curRad.grid(column=col,row=5,sticky=tk.W)
 
 
@@ -106,18 +124,6 @@ def _quit():
     win.destroy()
     exit()
 
-#creating tabs
-tabControl = ttk.Notebook(mighty)
-tab1 = ttk.Frame(tabControl)
-tabControl.add(tab1,text="Tab 1")   #add the tab
-tabControl.pack(expand=1,fill="both")   #pack to make visible
-
-
-tabControl2 = ttk.Notebook(mighty2)
-tab2 = ttk.Frame(tabControl)  #create a tab
-tabControl.add(tab2,text="Tab 2")
-
-
 # creating a menubar
 menu_bar = Menu(win)
 win.config(menu=menu_bar)
@@ -133,22 +139,36 @@ file_menu.add_command(label = "Open Module")
 file_menu.add_command(label="Exit", command=_quit)
 menu_bar.add_cascade(label="File",menu=file_menu)
 
+
+todays_date = date.today()
+
+#Display a message box
+def _msgBox():
+    msg.showinfo('Python Message Info Box', ' A python GUI created using tkinter:\nToday is ' + str(todays_date))
+    
 #adding another help option
 help_menu = Menu(menu_bar, tearoff=0)
+help_menu.add_command(label="About", command = _msgBox )
 menu_bar.add_cascade(label="Help", menu = help_menu)
-help_menu.add_command(label="About")
 
+#Warning message for run module
+def _msgwarning():
+    msg.showwarning('Warning message', 'Are you sure you want to run the module ?\n ')
+
+#ERROR message for check module
+def _msgerror():
+    msg.showerror('Error message', 'This code has a error')
 
 #adding another run menu bar
 run_menu = Menu(menu_bar, tearoff=0)
-run_menu.add_command(label="Run Module")
+run_menu.add_command(label="Run Module", command = _msgwarning)
 run_menu.add_separator()
-run_menu.add_command(label="Check Module")
+run_menu.add_command(label="Check Module", command = _msgerror)
 #run_menu.add_separator()
 run_menu.add_command(label="Python shell")
 menu_bar.add_cascade(label="Run", menu=run_menu)
 
-
+tabControl.pack(expand=1,fill="both")   #pack to make visible
 
 name_entered.focus()    #place cursor on the entry box
 
