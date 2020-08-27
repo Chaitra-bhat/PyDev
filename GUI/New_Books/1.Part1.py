@@ -1,0 +1,11 @@
+import tkinter as tk
+window = tk.Tk()
+canvas = tk.Canvas(window, bg="blue", width=500, height=500)
+canvas.pack()
+canvas.create_oval((0, 0, 500, 500), fill="yellow")
+canvas.create_oval((100, 120, 180, 250), fill="black")
+canvas.create_oval((320, 120, 400, 250),fill="black")
+canvas.create_line((80, 260, 210, 340), fill="red", width=5)
+canvas.create_line((110, 260, 190, 240), fill="red", width=5)
+canvas.create_line((80, 380, 300, 250), fill="red", width=5)
+window.mainloop()

@@ -6,6 +6,7 @@ win = tk.Tk()
 
 #Add a title
 win.title("Chaitra's calculator")
+win.geometry("425x595")
 
 # adding python icon
 win.iconbitmap('calc.ico')
